@@ -48,6 +48,18 @@
 
     <!-- ==================== Title ==================== -->
     <title>Finance Dashboard | Insights & Analytics</title>
+
+    <!-- ==================== Prevent flash of wrong theme ==================== -->
+    <script>
+      (function () {
+        const stored = localStorage.getItem('darkMode');
+        const prefersDark = window.matchMedia(
+          '(prefers-color-scheme: dark)',
+        ).matches;
+        const isDark = stored !== null ? stored === 'true' : prefersDark;
+        if (isDark) document.documentElement.classList.add('dark');
+      })();
+    </script>
   </head>
 
   <body>
