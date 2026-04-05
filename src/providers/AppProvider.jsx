@@ -18,10 +18,16 @@ const getInitialTransactions = () => {
   return mockTransactions;
 };
 
+const getInitialRole = () => {
+  const stored = localStorage.getItem('role');
+  if (stored === 'admin' || stored === 'viewer') return stored;
+  return 'viewer';
+};
+
 const AppProvider = ({ children }) => {
   const [darkMode, setDarkMode] = useState(getInitialDarkMode);
   const [transactions, setTransactions] = useState(getInitialTransactions);
-  const [role, setRole] = useState('viewer');
+  const [role, setRole] = useState(getInitialRole);
   const [filters, setFilters] = useState({
     search: '',
     category: 'All',
@@ -39,11 +45,15 @@ const AppProvider = ({ children }) => {
     localStorage.setItem('transactions', JSON.stringify(transactions));
   }, [transactions]);
 
+  // Persist role
+  useEffect(() => {
+    localStorage.setItem('role', role);
+  }, [role]);
+
   const addTransaction = (tx) => {
     setTransactions((prev) => [{ ...tx, id: Date.now() }, ...prev]);
   };
 
-  // Reset to mock data
   const resetTransactions = () => {
     setTransactions(mockTransactions);
   };
