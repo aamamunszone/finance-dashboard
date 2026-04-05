@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import { Outlet } from 'react-router';
 import Sidebar from './Sidebar';
 import Header from './Header';
+import PageTitle from '../ui/PageTitle';
 
 const Layout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
     <div className="flex h-screen bg-slate-50 dark:bg-gray-950 overflow-hidden transition-colors duration-200">
+      <PageTitle />
       <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
       <div className="flex-1 flex flex-col overflow-hidden min-w-0">
